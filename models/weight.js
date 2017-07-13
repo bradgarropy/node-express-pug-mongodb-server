@@ -1,173 +1,49 @@
-const fs = require("fs");
+const mongoose = require("mongoose");
 
 
-function read(request, response) {
+// define schema
+var weightSchema = mongoose.Schema({
+    date:   Date,
+    weight: Number
+});
 
-    // read file
-    fs.readFile("./models/weight.json", function(err, data) {
 
-        // check errors
-        if(err) {
-            console.log(err);
-            throw err;
-        }
+// create model
+var Weight = mongoose.model("Weight", weightSchema);
 
-        // carry on
-        else {
 
-            // convert to json
-            data = JSON.parse(data);
+function createWeight(weight, callback) {
 
-            // send response
-            response.json(data);
-        }
-    });
+    Weight.create(weight, callback);
 }
 
 
-function add(request, response) {
+function readWeight(callback) {
 
-    // TODO: Validate body data.
-
-    // convert weight to int
-    request.body.weight = parseInt(request.body.weight);
-
-    // read file
-    fs.readFile("./models/weight.json", function(err, data) {
-
-        // check errors
-        if(err) {
-            console.log(err);
-            throw err;
-        }
-
-        // carry on
-        else {
-
-            // convert to json
-            let weights = JSON.parse(data);
-
-            // add new weight
-            weights.push(request.body);
-
-            // write file
-            fs.writeFile("./models/weight.json", JSON.stringify(weights, null, 4), function(err) {
-
-                // check errors
-                if(err) {
-                    console.log(err);
-                    throw err;
-                }
-
-                // carry on
-                else {
-                    // send response
-                    response.json(weights);
-                }
-            });
-        }
-    });
+    Weight.find(callback);
 }
 
 
-function update(request, response) {
+function updateWeight(date, weight, callback) {
 
-    // TODO: Validate body data.
+    let query   = {date: date};
+    let update  = {weight: weight};
+    let options = {new: true};
 
-    // convert weight to int
-    request.body.weight = parseInt(request.body.weight);
-
-    // TODO: Validate url date.
-
-    // read file
-    fs.readFile("./models/weight.json", function(err, data) {
-
-        // check errors
-        if(err) {
-            console.log(err);
-            throw err;
-        }
-
-        // carry on
-        else {
-
-            // convert to json
-            let weights = JSON.parse(data);
-
-            // find index of object
-            let index = weights.findIndex(function(weight) {
-                return weight.date === request.params.date;
-            });
-
-            // update weight
-            weights[index].weight = request.body.weight;
-
-            // write file
-            fs.writeFile("./models/weight.json", JSON.stringify(weights, null, 4), function(err) {
-
-                // check errors
-                if(err) {
-                    console.log(err);
-                    throw err;
-                }
-
-                // carry on
-                else {
-                    // send response
-                    response.json(weights);
-                }
-            });
-        }
-    });
+    Weight.findOneAndUpdate(query, update, options, callback);
 }
 
 
-function remove(request, response) {
+function destroyWeight(date, callback) {
 
-    fs.readFile("./models/weight.json", function(err, data) {
+    let query = {date: date};
 
-        // check errors
-        if(err) {
-            console.log(err);
-            throw err;
-        }
-
-        // carry on
-        else {
-
-            // convert to json
-            let weights = JSON.parse(data);
-
-            // find and remove date
-            for(let i = 0; i < weights.length; i++) {
-                if (weights[i].date === request.params.date) {
-                    weights.splice(i, 1);
-                    break;
-                }
-            }
-
-            // write file
-            fs.writeFile("./models/weight.json", JSON.stringify(weights, null, 4), function(err) {
-
-                // catch error
-                if (err) {
-                    console.log(err);
-                    throw err;
-                }
-
-                // carry on
-                else {
-                    // send response
-                    response.json(weights);
-                }
-            });
-        }
-    });
+    Weight.findOneAndRemove(query, callback);
 }
 
 
 // exports
-exports.read   = read;
-exports.add    = add;
-exports.update = update;
-exports.remove = remove;
+exports.createWeight  = createWeight;
+exports.readWeight    = readWeight;
+exports.updateWeight  = updateWeight;
+exports.destroyWeight = destroyWeight;

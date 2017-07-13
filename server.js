@@ -1,4 +1,5 @@
 const bodyparser = require("body-parser");
+const mongoose   = require("mongoose");
 const express    = require("express");
 const index      = require("./routes/index");
 const weight     = require("./routes/weight");
@@ -6,6 +7,10 @@ const weight     = require("./routes/weight");
 
 // create application
 const app = express();
+
+
+// create database
+mongoose.connect("mongodb://admin:password@ds153732.mlab.com:53732/node-server");
 
 
 // app settings
