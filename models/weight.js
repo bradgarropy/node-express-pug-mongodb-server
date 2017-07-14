@@ -12,19 +12,19 @@ var weightSchema = mongoose.Schema({
 var Weight = mongoose.model("Weight", weightSchema);
 
 
-function createWeight(weight, callback) {
+function create(weight, callback) {
 
     Weight.create(weight, callback);
 }
 
 
-function readWeight(callback) {
+function read(callback) {
 
     Weight.find(callback);
 }
 
 
-function updateWeight(date, weight, callback) {
+function update(date, weight, callback) {
 
     let query   = {date: date};
     let update  = {weight: weight};
@@ -34,7 +34,7 @@ function updateWeight(date, weight, callback) {
 }
 
 
-function destroyWeight(date, callback) {
+function destroy(date, callback) {
 
     let query = {date: date};
 
@@ -43,7 +43,7 @@ function destroyWeight(date, callback) {
 
 
 // exports
-exports.createWeight  = createWeight;
-exports.readWeight    = readWeight;
-exports.updateWeight  = updateWeight;
-exports.destroyWeight = destroyWeight;
+exports.create  = create;
+exports.read    = read;
+exports.update  = update;
+exports.destroy = destroy;

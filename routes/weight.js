@@ -1,16 +1,17 @@
 const express = require("express");
 const Weight  = require("../models/weight");
 
+
+// create router
 const router = express.Router();
 
 
+// http post
 router.post("/", function(request, response) {
-    console.log(request.method + " " +  request.originalUrl);
-    console.log(request.body);
 
     let weight = request.body;
 
-    Weight.createWeight(weight, function(err, weight) {
+    Weight.create(weight, function(err, weight) {
 
         // check errors
         if(err) {
@@ -27,10 +28,10 @@ router.post("/", function(request, response) {
 });
 
 
+// http get
 router.get("/", function(request, response) {
-    console.log(request.method + " " +  request.originalUrl);
 
-    Weight.readWeight(function(err, weights) {
+    Weight.read(function(err, weights) {
 
         // check errors
         if(err) {
@@ -47,14 +48,13 @@ router.get("/", function(request, response) {
 });
 
 
+// http patch
 router.patch("/:date", function(request, response) {
-    console.log(request.method + " " +  request.originalUrl);
-    console.log(request.body);
 
     let date   = request.params.date;
     let weight = request.body.weight;
 
-    Weight.updateWeight(date, weight, function(err, weight) {
+    Weight.update(date, weight, function(err, weight) {
 
         // check errors
         if(err) {
@@ -71,12 +71,12 @@ router.patch("/:date", function(request, response) {
 });
 
 
+// http delete
 router.delete("/:date", function(request, response) {
-    console.log(request.method + " " +  request.originalUrl);
 
     let date = request.params.date;
 
-    Weight.destroyWeight(date, function(err, weight) {
+    Weight.destroy(date, function(err, weight) {
 
         // check errors
         if(err) {
@@ -93,4 +93,5 @@ router.delete("/:date", function(request, response) {
 });
 
 
+// exports
 module.exports = router;

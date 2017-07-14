@@ -1,8 +1,9 @@
 const bodyparser = require("body-parser");
 const mongoose   = require("mongoose");
 const express    = require("express");
-const index      = require("./routes/index");
+const logger     = require("./routes/logger");
 const weight     = require("./routes/weight");
+const index      = require("./routes/index");
 
 
 // create application
@@ -24,10 +25,9 @@ app.set("view engine", "pug");
 
 
 // middleware
-let bp_json = bodyparser.json();
-let bp_urlencoded = bodyparser.urlencoded( {extended: true} );
-app.use(bp_json);
-app.use(bp_urlencoded);
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded( {extended: true} ));
+app.use(logger.log);
 
 
 // index routes
