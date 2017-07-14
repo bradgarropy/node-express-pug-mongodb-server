@@ -13,6 +13,10 @@ const app = express();
 mongoose.connect("mongodb://admin:password@ds153732.mlab.com:53732/node-server");
 
 
+// locals
+app.locals.moment = require("moment");
+
+
 // app settings
 app.set("json spaces", 4);
 app.set("views", "./views");
