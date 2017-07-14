@@ -1,7 +1,7 @@
 {
   "name": "node-express-pug-mongodb-server",
   "version": "0.0.1",
-  "description": "Simple web server and REST API using Node, Express, pug, and MongoDB.",
+  "description": "Simple web server and REST API using Node, Express, pug & MongoDB.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

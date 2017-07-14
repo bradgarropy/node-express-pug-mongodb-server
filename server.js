@@ -11,7 +11,7 @@ const app = express();
 
 
 // create database
-mongoose.connect("mongodb://admin:password@ds153732.mlab.com:53732/node-server");
+mongoose.connect("mongodb://admin:password@ds153732.mlab.com:53732/node-server", {useMongoClient: true});
 
 
 // locals
