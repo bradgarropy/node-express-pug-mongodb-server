@@ -25,7 +25,7 @@ At this point I would call this exercise finished, but the project is far from c
     * Vue
     * Angular
 
-All these changes will be placed in the [node-web-app-template](https://github.com/bradgarropy/node-web-app-template) repository, so give it a star and follow along!
+All these changes will be placed in the [nwa](https://github.com/bradgarropy/nwa) repository, so give it a star and follow along!
 
 
 ## Project Iterations
